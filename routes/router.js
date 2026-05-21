@@ -80,8 +80,8 @@ router.post('/login', LoginController);
 /** Router para usuários */
 router.use("/users", AuthMiddleware, userRouter);
 
-/** Router para endereços */
-router.use("/addresses", AuthMiddleware, addressRouter);
+/** Router para endereços (temporariamente desabilitado se controladores ausentes) */
+// router.use("/addresses", AuthMiddleware, addressRouter);
 
 /** Router para cursos */
 router.use("/courses", AuthMiddleware, courseRouter);

@@ -1,3 +1,77 @@
+# TF - DW - Aula 12 — Middlewares, Segurança e Swagger
+
+Resumo da solução entregue para a atividade da Aula 12.
+
+**O que foi implementado**
+- **Middleware de log**: arquivo [app/Http/Middlewares/LogMiddleware.js](app/Http/Middlewares/LogMiddleware.js) que registra cada requisição no formato:
+  - `[ISO] METODO :: ROTA` (ex: `[2026-05-21T14:30:00.000Z] GET :: /courses`).
+  - Logs são exibidos via `console.log` e gravados em `storage/logs/log.txt`.
+- **Documentação Swagger**: arquivo [docs/Course.json](docs/Course.json) com especificação OpenAPI para o resource `Course`. O Swagger é carregado pela aplicação em `/docs` via [app/Http/SwaggerDoc.js](app/Http/SwaggerDoc.js).
+
+Arquivos principais alterados/criados
+- [app/Http/Middlewares/LogMiddleware.js](app/Http/Middlewares/LogMiddleware.js)
+- [docs/Course.json](docs/Course.json)
+
+Como executar localmente
+1. Instale dependências:
+
+```bash
+cd "c:/Users/andri/OneDrive/Documentos/TF Middlewares/unifaat-2026-dw-project"
+npm install
+```
+
+2. Copie o arquivo de exemplo de ambiente e ajuste as variáveis se necessário:
+
+```powershell
+Copy-Item .env.example .env
+# Edite .env e defina NODE_WEB_PORT (por ex. 3000) e credenciais do DB se usar o banco
+```
+
+3. Inicie o servidor:
+
+```bash
+npm start
+```
+
+4. Acesse a documentação Swagger (ex: se `NODE_WEB_PORT=3000`):
+
+```
+http://localhost:3000/docs
+```
+
+Testes rápidos (exemplos)
+- Listar cursos:
+
+```bash
+curl http://localhost:3000/courses
+```
+
+- Criar curso:
+
+```bash
+curl -X POST http://localhost:3000/courses -H "Content-Type: application/json" -d '{"name":"Algoritmos","professor":"Dr. X"}'
+```
+
+Ver logs
+- Os logs de requisição são gravados em `storage/logs/log.txt` e também aparecem no console do servidor.
+
+Como subir para um novo repositório no GitHub
+1. Crie um novo repositório no GitHub (por ex. `YOUR_USERNAME/unifaat-2026-dw-project-yourname`).
+2. No terminal local do projeto execute:
+
+```bash
+git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO.git
+git branch -M main
+git push -u origin main
+```
+
+Observações finais
+- O middleware de log não interrompe o fluxo: sempre chama `next()`.
+- A especificação em `docs/Course.json` reflete as rotas implementadas nos controllers de `app/Http/Controllers/CourseApi`.
+
+Se quiser, eu posso:
+- criar o repositório no seu GitHub (preciso de um token com permissões), ou
+- executar o `git push` se você me informar a URL do repo.
 # Projeto Desenvolvimento Web - Bimestre 2
 
 ## Instalação e Execução

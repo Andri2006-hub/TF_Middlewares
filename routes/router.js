@@ -10,6 +10,7 @@ import CONSTANTS from '../bootstrap/config.js';
 import ListFilesController from '../app/Http/Controllers/ListFilesController.js';
 import GetFileController from '../app/Http/Controllers/GetFileController.js';
 import Return404Controller from '../app/Http/Controllers/Return404Controller.js';
+import LogMiddleware from '../app/Http/Middlewares/LogMiddleware.js';
 import userRouter from './apis/userRouter.js';
 import addressRouter from './apis/addressRouter.js';
 import courseRouter from './apis/courseRouter.js';
@@ -38,6 +39,9 @@ router.use(express.urlencoded({ extended: true }));
  * Adiciona suporte a multipart/form-data para envio de arquivos
  */
 router.use(fileUpload());
+
+/** Middleware de log: registra todas as requisições */
+router.use(LogMiddleware);
 
 /**
  * Rota para obter um arquivo específico
